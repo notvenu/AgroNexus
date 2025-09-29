@@ -2,10 +2,18 @@
   "appName": "AgroNexus",
   "tagline": "Data-Driven Farming for a Bountiful Harvest",
   "nav": {
+    "home": "Home",
+    "services": "Services",
+    "crop_recommendation": "Crop Recommendation",
+    "yield_prediction": "Yield Prediction",
+    "fertilizer_recommendation": "Fertilizer Recommendation",
     "dashboard": "Dashboard",
     "labs": "Find Labs",
-    "diseaseDetection": "Detect Disease",
-    "login": "Login"
+    "disease_detection": "Detect Disease",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "login": "Login",
+    "register": "Register"
   },
   "landing": {
     "cta": {
@@ -38,40 +46,41 @@
   },
   "login": {
     "title_login": "Sign in to your account",
-    "title_register": "Create a new account",
-    "name_placeholder": "Full Name",
+    "login_to_continue": "Login to access personalized farming insights.",
     "email_placeholder": "Email address",
     "password_placeholder": "Password",
     "forgot_password": "Forgot your password?",
     "button_login": "Sign In",
     "button_register": "Register",
     "no_account": "Don't have an account?",
-    "has_account": "Already have an account?",
     "switch_to_register": "Sign Up",
     "switch_to_login": "Sign In"
+  },
+  "register": {
+    "create_account": "Create Your Account",
+    "join_community": "Join our community of smart farmers today.",
+    "full_name": "Full Name",
+    "phone_number": "Phone Number",
+    "email": "Email Address",
+    "password": "Password",
+    "state": "State",
+    "select_state": "Select State",
+    "district": "District",
+    "city_village": "City/Village/Town",
+    "pincode": "Pincode",
+    "land_area_acres": "Land Area (in acres)",
+    "soil_type": "Soil Type",
+    "select_soil_type": "Select Soil Type",
+    "register_button": "Register",
+    "register_now": "Register Now",
+    "already_have_account": "Already have an account?"
   },
   "labs": {
     "title": "Find a Soil Testing Lab",
     "subtitle": "Locate government and NGO-approved labs near you.",
     "search_placeholder": "Search by city or lab name...",
     "book_now": "Book Now",
-    "no_results": "No labs found. Try a different search.",
-    "map_placeholder": "Interactive Map"
-  },
-  "admin": {
-    "title": "Admin Dashboard",
-    "total_farmers": "Total Farmers",
-    "total_labs": "Registered Labs",
-    "reports_processed": "Reports Processed",
-    "pending_requests": "Pending Requests",
-    "recent_appointments": "Recent Appointments",
-    "table": {
-      "farmer": "Farmer Name",
-      "lab": "Lab",
-      "date": "Date",
-      "status": "Status",
-      "actions": "Actions"
-    }
+    "no_results": "No labs found. Try a different search."
   },
   "dashboard": {
     "welcome": "Welcome back, {{name}}!",
@@ -102,7 +111,9 @@
   "common": {
     "submit": "Submit",
     "upload": "Upload Image",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "yes": "Yes",
+    "no": "No"
   },
   "disease": {
     "title": "Crop Disease Detection",
@@ -112,5 +123,107 @@
     "remedy": "Recommended Remedy",
     "mock_disease_name": "Late Blight",
     "mock_remedy_info": "Apply fungicides containing mancozeb or chlorothalonil. Ensure proper spacing between plants for good air circulation and avoid overhead irrigation."
+  },
+  "yield": {
+    "title": "Crop Yield Prediction",
+    "subtitle": "Fill in the details below to get an AI-powered forecast of your crop yield.",
+    "region": "Region",
+    "soil_type": "Soil Type",
+    "select_soil": "Select Soil Type",
+    "crop": "Crop",
+    "select_crop": "Select Crop",
+    "rainfall": "Rainfall (mm)",
+    "temperature": "Avg. Temperature (°C)",
+    "fertilizer_used": "Fertilizer Used?",
+    "irrigation_used": "Irrigation Used?",
+    "weather_condition": "Predominant Weather",
+    "select_weather": "Select Weather",
+    "days_to_harvest": "Days to Harvest",
+    "predict_button": "Predict Yield",
+    "predicting": "Predicting...",
+    "prediction_result": "Predicted Yield",
+    "yield_unit": "kg/acre",
+    "confidence": "Confidence"
+  },
+  "crop": {
+    "title": "Crop Recommendation",
+    "subtitle": "Enter your soil and climate data to find the most suitable crop for your farm.",
+    "n": "Nitrogen Content (N)",
+    "p": "Phosphorous Content (P)",
+    "k": "Potassium Content (K)",
+    "temperature": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "ph": "Soil pH",
+    "rainfall": "Rainfall (mm)",
+    "recommend_button": "Recommend Crop",
+    "recommending": "Recommending...",
+    "recommendation_result": "Recommended Crop",
+    "confidence": "Confidence"
+  },
+  "fertilizer": {
+    "title": "Fertilizer Recommendation",
+    "subtitle": "Get a precise fertilizer recommendation based on your soil and crop type.",
+    "temperature": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "moisture": "Soil Moisture (%)",
+    "soil_type": "Soil Type",
+    "select_soil": "Select Soil Type",
+    "crop_type": "Crop Type",
+    "select_crop": "Select Crop Type",
+    "nitrogen": "Nitrogen (N)",
+    "potassium": "Potassium (K)",
+    "phosphorous": "Phosphorous (P)",
+    "recommend_button": "Recommend Fertilizer",
+    "recommending": "Recommending...",
+    "recommendation_result": "Recommended Fertilizer",
+    "confidence": "Confidence"
+  },
+  "about": {
+    "title": "About Smart Crop Advisory",
+    "subtitle": "Empowering farmers with data-driven technology for a sustainable future.",
+    "mission": {
+      "heading": "Our Mission",
+      "title": "Bridging the Gap Between Traditional Farming and Modern Technology",
+      "text": "Our goal is to provide every farmer, regardless of the size of their land, with accessible, affordable, and easy-to-use tools that leverage artificial intelligence. We believe in a future where technology and tradition work hand-in-hand to create a more productive and sustainable agricultural ecosystem."
+    },
+    "values": {
+        "title": "Our Core Values",
+        "value1_title": "Farmer First",
+        "value1_text": "Our solutions are designed with the farmer's needs and challenges at the forefront.",
+        "value2_title": "Innovation",
+        "value2_text": "We are committed to continuous research and development to bring the best technology to the field.",
+        "value3_title": "Community",
+        "value3_text": "We aim to build a strong network of farmers, experts, and labs to share knowledge and grow together."
+    },
+    "team": {
+        "title": "Meet the Team",
+        "role1": "Lead Agronomist",
+        "role2": "Head of Engineering",
+        "role3": "Data Scientist"
+    }
+  },
+  "contact": {
+      "title": "Get In Touch",
+      "subtitle": "We'd love to hear from you. Whether you have a question, feedback, or need support, our team is here to help.",
+      "info_title": "Contact Information",
+      "address_title": "Our Office",
+      "address_detail": "123 AgriTech Park, Pune, Maharashtra, 411001, India",
+      "email_title": "Email Us",
+      "email_detail": "contact@smartcrop.com",
+      "phone_title": "Call Us",
+      "phone_detail": "+91 123 456 7890",
+      "form_title": "Send a Message",
+      "form_name": "Your Name",
+      "form_email": "Your Email",
+      "form_message": "Your Message",
+      "form_submit": "Send Message"
+  },
+  "footer": {
+    "quick_links": "Quick Links",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "follow_us": "Follow Us",
+    "rights_reserved": "All rights reserved."
   }
 }

@@ -77,8 +77,7 @@ const LabDirectory = () => {
           {/* Right Column: Map */}
           <div className="h-96 rounded-lg bg-gray-300 shadow-lg lg:col-span-2 lg:h-auto">
              {/* This is a placeholder for a real map like Google Maps, Leaflet, etc. */}
-             <div className="flex h-full w-full items-center justify-center rounded-lg bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/1000x800/e2e8f0/64748b?text=Map+of+Punjab\\n(Interactive+Map+Goes+Here)')"}}>
-                <p className="rounded-md bg-white/70 p-4 text-lg font-semibold text-gray-700">{t('labs.map_placeholder')}</p>
+             <div className="flex h-full w-full items-center justify-center rounded-lg bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/1000x800/e2e8f0/64748b?text=Map+of+India')"}}>
              </div>
           </div>
         </div>

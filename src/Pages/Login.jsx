@@ -1,89 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { User, Lock, Mail } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Login = () => {
-  const { t } = useTranslation();
-  const [isLogin, setIsLogin] = useState(true);
+    const { t } = useTranslation();
 
-  const InputField = ({ icon, type, placeholder }) => (
-    <div className="relative">
-      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        {icon}
-      </div>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="block w-full rounded-md border-gray-300 py-3 pl-10 pr-3 shadow-sm focus:border-primary focus:ring-primary"
-      />
-    </div>
-  );
-
-  return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <div className="transform animate-fadeIn rounded-xl bg-white p-8 shadow-2xl transition-transform duration-500 hover:scale-105">
-          <div>
-            <h2 className="text-center text-3xl font-extrabold text-gray-900">
-              {isLogin ? t('login.title_login') : t('login.title_register')}
-            </h2>
-          </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <div className="space-y-4 rounded-md shadow-sm">
-              {!isLogin && (
-                <InputField
-                  icon={<User className="h-5 w-5 text-gray-400" />}
-                  type="text"
-                  placeholder={t('login.name_placeholder')}
-                />
-              )}
-              <InputField
-                icon={<Mail className="h-5 w-5 text-gray-400" />}
-                type="email"
-                placeholder={t('login.email_placeholder')}
-              />
-              <InputField
-                icon={<Lock className="h-5 w-5 text-gray-400" />}
-                type="password"
-                placeholder={t('login.password_placeholder')}
-              />
+    const InputField = ({ icon, type, placeholder }) => (
+        <div className="relative flex items-center mb-4">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                {icon}
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="text-sm">
-                <a href="#" className="font-medium text-primary hover:text-primary-dark">
-                  {t('login.forgot_password')}
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <Link to="/dashboard">
-                <button
-                  type="submit"
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                >
-                  {isLogin ? t('login.button_login') : t('login.button_register')}
-                </button>
-              </Link>
-            </div>
-          </form>
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              {isLogin ? t('login.no_account') : t('login.has_account')}{' '}
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="font-medium text-primary hover:text-primary-dark"
-              >
-                {isLogin ? t('login.switch_to_register') : t('login.switch_to_login')}
-              </button>
-            </p>
-          </div>
+            <input
+                type={type}
+                placeholder={placeholder}
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+            />
         </div>
-      </div>
-    </div>
-  );
+    );
+
+    return (
+        <div className="min-h-screen bg-green-50 flex items-center justify-center p-4">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden md:flex flex-row-reverse"
+            >
+                <div className="w-full md:w-1/2 p-8">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-2">{t('login.title_login')}</h2>
+                    <p className="text-gray-500 mb-6">{t('login.login_to_continue')}</p>
+                    
+                    <form className="space-y-4">
+                        <InputField icon={<Mail size={18} />} type="email" placeholder={t('register.email')} />
+                        <InputField icon={<Lock size={18} />} type="password" placeholder={t('register.password')} />
+
+                        <div className="flex items-center justify-end">
+                            <div className="text-sm">
+                                <a href="#" className="font-medium text-green-600 hover:underline">
+                                    {t('login.forgot_password')}
+                                </a>
+                            </div>
+                        </div>
+
+                        <Link to="/dashboard">
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit"
+                                className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-300"
+                            >
+                                {t('login.button_login')}
+                            </motion.button>
+                        </Link>
+                    </form>
+
+                    <p className="text-center text-sm text-gray-500 mt-6">
+                        {t('login.no_account')}{' '}
+                        <Link to="/register" className="font-semibold text-green-600 hover:underline">
+                            {t('register.register_now')}
+                        </Link>
+                    </p>
+                </div>
+                
+                <div className="hidden md:block md:w-1/2 bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/800x1200/22c55e/ffffff?text=AgroNexus&font=lora')"}}>
+                    {/* Background Image */}
+                </div>
+            </motion.div>
+        </div>
+    );
 };
 
 export default Login;
+
