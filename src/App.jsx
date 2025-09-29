@@ -4,15 +4,15 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 
-// Lazy load the page components
+// Lazy load the page components with correct, case-sensitive paths
 const LandingPage = React.lazy(() => import('./pages/LandingPage'));
 const Login = React.lazy(() => import('./pages/Login'));
-const Register = React.lazy(() => import('./pages/Registeration'));
+const Register = React.lazy(() => import('./pages/Register'));
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 const LabDirectory = React.lazy(() => import('./pages/LabDirectory'));
 const DiseaseDetection = React.lazy(() => import('./pages/DiseaseDetection'));
-const AboutUs = React.lazy(() => import('./pages/Aboutus'));
-const ContactUs = React.lazy(() => import('./pages/Contactus'));
+const AboutUs = React.lazy(() => import('./pages/AboutUs'));
+const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const CropYieldPrediction = React.lazy(() => import('./pages/CropYieldPrediction'));
 const CropRecommendation = React.lazy(() => import('./pages/CropRecommendation'));
 const FertilizerRecommendation = React.lazy(() => import('./pages/FertilizerRecommendation'));
