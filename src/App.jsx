@@ -5,18 +5,18 @@ import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 
 // Lazy load the page components with correct, case-sensitive paths
-const LandingPage = React.lazy(() => import('./pages/Landing'));
-const Login = React.lazy(() => import('./pages/Login'));
-const Register = React.lazy(() => import('./pages/Register'));
-const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-const LabDirectory = React.lazy(() => import('./pages/LabDirectory'));
-const DiseaseDetection = React.lazy(() => import('./pages/DiseaseDetection'));
-const AboutUs = React.lazy(() => import('./pages/AboutUs'));
-const ContactUs = React.lazy(() => import('./pages/ContactUs'));
-const CropYieldPrediction = React.lazy(() => import('./pages/CropYieldPrediction'));
-const CropRecommendation = React.lazy(() => import('./pages/CropRecommendation'));
-const FertilizerRecommendation = React.lazy(() => import('./pages/FertilizerRecommendation'));
-const Chatbot = React.lazy(() => import('./components/Chatbot'));
+const LandingPage = React.lazy(() => import('./pages/Landing.jsx'));
+const Login = React.lazy(() => import('./pages/Login.jsx'));
+const Register = React.lazy(() => import('./pages/Register.jsx'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard.jsx'));
+const LabDirectory = React.lazy(() => import('./pages/LabDirectory.jsx'));
+const DiseaseDetection = React.lazy(() => import('./pages/DiseaseDetection.jsx'));
+const AboutUs = React.lazy(() => import('./pages/Aboutus.jsx'));
+const ContactUs = React.lazy(() => import('./pages/Contactus.jsx'));
+const CropYieldPrediction = React.lazy(() => import('./pages/CropYieldPrediction.jsx'));
+const CropRecommendation = React.lazy(() => import('./pages/CropRecommendation.jsx'));
+const FertilizerRecommendation = React.lazy(() => import('./pages/FertilizerRecommendation.jsx'));
+const Chatbot = React.lazy(() => import('./components/Chatbot.jsx'));
 
 const AppContent = () => {
   const location = useLocation();
