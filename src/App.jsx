@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 
 // Lazy load the page components with correct, case-sensitive paths
-const LandingPage = React.lazy(() => import('./pages/LandingPage'));
+const LandingPage = React.lazy(() => import('./pages/Landing'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Register = React.lazy(() => import('./pages/Register'));
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
