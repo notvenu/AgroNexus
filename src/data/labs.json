@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Punjab Agri Lab, Ludhiana",
+    "address": "Ferozepur Rd, Punjab Agricultural University",
+    "city": "Ludhiana",
+    "contact": "+91 161 240 1960"
+  },
+  {
+    "id": 2,
+    "name": "Amritsar Soil Testing Center",
+    "address": "Near Khalsa College, GT Road",
+    "city": "Amritsar",
+    "contact": "+91 183 225 8802"
+  },
+  {
+    "id": 3,
+    "name": "Patiala District Lab",
+    "address": "Govt. Mohindra College Road",
+    "city": "Patiala",
+    "contact": "+91 175 221 4455"
+  },
+  {
+    "id": 4,
+    "name": "Jalandhar Krishi Vigyan Kendra",
+    "address": "Nurmahal, Jalandhar",
+    "city": "Jalandhar",
+    "contact": "+91 182 622 3441"
+  },
+  {
+    "id": 5,
+    "name": "Bathinda Soil & Water Testing Lab",
+    "address": "Dabwali Road, Near Thermal Plant",
+    "city": "Bathinda",
+    "contact": "+91 164 221 2233"
+  }
+]

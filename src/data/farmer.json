@@ -1,0 +1,30 @@
+{
+  "name": "Gurpreet Singh",
+  "farmLocation": "Moga, Punjab",
+  "soilHealth": {
+    "lastTestDate": "2023-04-12",
+    "ph": 7.8,
+    "organicCarbon": 0.65,
+    "nitrogen": 180,
+    "phosphorus": 22,
+    "potassium": 150,
+    "monthsToRetest": 18
+  },
+  "yieldPrediction": {
+    "crop": "Wheat",
+    "yield": 2.1
+  },
+  "fertilizerPlan": {
+    "crop": "Wheat",
+    "nutrients": {
+      "Urea": "50 kg/acre",
+      "DAP": "25 kg/acre",
+      "Potash": "20 kg/acre"
+    }
+  },
+  "cropRecommendation": {
+    "crop": "Mustard (Sarson)",
+    "reason": "High profitability and suitable for current soil conditions.",
+    "marketPrice": 5600
+  }
+}

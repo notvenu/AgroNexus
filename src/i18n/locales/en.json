@@ -1,0 +1,116 @@
+{
+  "appName": "AgroNexus",
+  "tagline": "Data-Driven Farming for a Bountiful Harvest",
+  "nav": {
+    "dashboard": "Dashboard",
+    "labs": "Find Labs",
+    "diseaseDetection": "Detect Disease",
+    "login": "Login"
+  },
+  "landing": {
+    "cta": {
+      "main": "Get Started",
+      "secondary": "Find a Lab"
+    },
+    "featuresTitle": "Revolutionize Your Farming",
+    "featuresSubtitle": "Leverage technology for better yields and healthier crops.",
+    "feature1": {
+      "title": "Yield Prediction",
+      "desc": "Forecast your crop yield with high accuracy using AI models."
+    },
+    "feature2": {
+      "title": "Fertilizer Plans",
+      "desc": "Get custom fertilizer recommendations based on soil health."
+    },
+    "feature3": {
+      "title": "Disease Detection",
+      "desc": "Instantly identify crop diseases from a single image."
+    },
+    "feature4": {
+      "title": "Expert Advice",
+      "desc": "Our AgriBot provides instant answers to your farming questions."
+    },
+    "testimonial": {
+      "quote": "This platform has completely changed how I manage my farm. The yield predictions are incredibly accurate!",
+      "author": "Gurpreet Singh",
+      "location": "Farmer, Moga, Punjab"
+    }
+  },
+  "login": {
+    "title_login": "Sign in to your account",
+    "title_register": "Create a new account",
+    "name_placeholder": "Full Name",
+    "email_placeholder": "Email address",
+    "password_placeholder": "Password",
+    "forgot_password": "Forgot your password?",
+    "button_login": "Sign In",
+    "button_register": "Register",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?",
+    "switch_to_register": "Sign Up",
+    "switch_to_login": "Sign In"
+  },
+  "labs": {
+    "title": "Find a Soil Testing Lab",
+    "subtitle": "Locate government and NGO-approved labs near you.",
+    "search_placeholder": "Search by city or lab name...",
+    "book_now": "Book Now",
+    "no_results": "No labs found. Try a different search.",
+    "map_placeholder": "Interactive Map"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "total_farmers": "Total Farmers",
+    "total_labs": "Registered Labs",
+    "reports_processed": "Reports Processed",
+    "pending_requests": "Pending Requests",
+    "recent_appointments": "Recent Appointments",
+    "table": {
+      "farmer": "Farmer Name",
+      "lab": "Lab",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}!",
+    "soilHealth": "Soil Health",
+    "viewRecords": "View Records",
+    "retestReminder": "Next soil test recommended in {{months}} months.",
+    "yieldPrediction": "Yield Prediction",
+    "crop": "Crop",
+    "predictedYield": "Predicted Yield",
+    "fertilizerPlan": "Fertilizer Plan",
+    "viewPlan": "View Plan",
+    "cropRec": "Crop Recommendation",
+    "nextSeason": "For Next Season",
+    "recommendedCrop": "Recommended Crop"
+  },
+  "chatbot": {
+    "title": "AgriBot 🌱",
+    "placeholder": "Ask me anything...",
+    "greeting": "Hello! I'm AgriBot. How can I help you with your farm today?",
+    "query": {
+      "predict_yield_wheat": "My predicted wheat yield is **2.5 tons/acre**.",
+      "recommend_fertilizer": "Based on your latest soil report, we recommend: **Urea: 50kg/acre, DAP: 25kg/acre, Potash: 20kg/acre**.",
+      "recommend_crop": "For the upcoming season, **Mustard (Sarson)** is a highly recommended and profitable crop for your farm.",
+      "soil_ph_info": "Soil pH is a measure of soil acidity or alkalinity. A pH of 7 is neutral. Most crops prefer a pH between 6.0 and 7.5 for optimal nutrient uptake."
+    },
+    "default_response": "I'm sorry, I don't have information on that yet. You could try asking about yield prediction, fertilizer plans, or crop recommendations."
+  },
+  "common": {
+    "submit": "Submit",
+    "upload": "Upload Image",
+    "loading": "Loading..."
+  },
+  "disease": {
+    "title": "Crop Disease Detection",
+    "subtitle": "Upload an image of the affected plant leaf.",
+    "resultTitle": "Detection Result",
+    "detected": "Detected Disease",
+    "remedy": "Recommended Remedy",
+    "mock_disease_name": "Late Blight",
+    "mock_remedy_info": "Apply fungicides containing mancozeb or chlorothalonil. Ensure proper spacing between plants for good air circulation and avoid overhead irrigation."
+  }
+}
