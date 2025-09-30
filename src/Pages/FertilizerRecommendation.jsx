@@ -8,18 +8,33 @@ import { getFertilizerRecommendation } from '../api/ml';
 const soilTypes = ["Alluvial", "Black", "Red", "Laterite", "Arid", "Forest", "Peat", "Saline"];
 const cropTypes = ["Rice", "Wheat", "Maize", "Cotton", "Jute", "Sugarcane", "Pulses", "Millets", "Oilseeds"];
 
+const initialFormState = {
+    soil_type: '',
+    crop_type: '',
+    nitrogen: '',
+    potassium: '',
+    phosphorous: ''
+};
+
+const initialWeatherState = {
+    temperature: '',
+    humidity: '',
+    moisture: ''
+};
+
 const FertilizerRecommendation = () => {
     const { t } = useTranslation();
     const { isLoggedIn } = useAuth();
     const [result, setResult] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [formData, setFormData] = useState(initialFormState);
+    const [weatherInputs, setWeatherInputs] = useState(initialWeatherState);
 
-    const [weatherInputs, setWeatherInputs] = useState({
-        temperature: '',
-        humidity: '',
-        moisture: ''
-    });
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const handleWeatherInputChange = (e) => {
         const { name, value } = e.target;
@@ -27,7 +42,6 @@ const FertilizerRecommendation = () => {
     };
 
     const handleGetLocation = () => {
-        alert("Fetching location data... (mocked)");
         setWeatherInputs({
             temperature: '28',
             humidity: '70',
@@ -39,37 +53,40 @@ const FertilizerRecommendation = () => {
         e.preventDefault();
         setHasSubmitted(true);
         setIsLoading(true);
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
+        
+        let submissionData = { ...formData };
         if (!isLoggedIn) {
-            data.temperature = weatherInputs.temperature;
-            data.humidity = weatherInputs.humidity;
-            data.moisture = weatherInputs.moisture;
+            submissionData = { ...submissionData, ...weatherInputs };
         }
 
-        const recommendation = await getFertilizerRecommendation(data);
+        const recommendation = await getFertilizerRecommendation(submissionData);
         setResult(recommendation);
         setIsLoading(false);
+        
+        // Reset forms after submission is complete
+        setFormData(initialFormState);
+        setWeatherInputs(initialWeatherState);
     };
 
-    const InputField = ({ name, label, type = "number", placeholder }) => (
+    const InputField = ({ name, label, type = "number", placeholder, value, onChange }) => (
         <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <input
                 type={type}
                 name={name}
                 placeholder={placeholder}
+                value={value}
+                onChange={onChange}
                 required
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
             />
         </div>
     );
 
-     const SelectField = ({ name, label, options, placeholder }) => (
+    const SelectField = ({ name, label, options, placeholder, value, onChange }) => (
         <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-            <select name={name} required className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+            <select name={name} value={value} onChange={onChange} required className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                 <option value="">{placeholder}</option>
                 {options.map(option => <option key={option} value={option}>{option}</option>)}
             </select>
@@ -94,14 +111,19 @@ const FertilizerRecommendation = () => {
 
     return (
         <div className="bg-gray-50 min-h-screen py-12 px-4">
-            <div className="container mx-auto max-w-4xl">
+            <div className="container mx-auto max-w-7xl">
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                     <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-4">{t('nav.fertilizer_recommendation')}</h1>
                     <p className="text-lg text-gray-600 text-center mb-8">{t('prediction_pages.fertilizer_rec_subtitle')}</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                <div className="flex flex-wrap justify-center items-start gap-8">
+                     <motion.div 
+                        initial={{ opacity: 0, x: -20 }} 
+                        animate={{ opacity: 1, x: 0 }} 
+                        transition={{ delay: 0.2 }}
+                        className="w-full max-w-lg flex-shrink-0"
+                     >
                         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg space-y-4">
                             {!isLoggedIn && (
                                 <div className="border-b pb-4">
@@ -121,14 +143,14 @@ const FertilizerRecommendation = () => {
                             )}
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <SelectField name="soil_type" label={t('prediction_pages.soil_type')} options={soilTypes} placeholder={t('fertilizer.select_soil')} />
-                                <SelectField name="crop_type" label={t('prediction_pages.crop_type')} options={cropTypes} placeholder={t('fertilizer.select_crop')} />
+                                <SelectField name="soil_type" label={t('prediction_pages.soil_type')} options={soilTypes} placeholder={t('fertilizer.select_soil')} value={formData.soil_type} onChange={handleInputChange} />
+                                <SelectField name="crop_type" label={t('prediction_pages.crop_type')} options={cropTypes} placeholder={t('fertilizer.select_crop')} value={formData.crop_type} onChange={handleInputChange} />
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <InputField name="nitrogen" label={t('prediction_pages.nitrogen')} placeholder="kg/ha" />
-                                <InputField name="potassium" label={t('prediction_pages.potassium')} placeholder="kg/ha" />
-                                <InputField name="phosphorous" label={t('prediction_pages.phosphorus')} placeholder="kg/ha" />
+                                <InputField name="nitrogen" label={t('prediction_pages.nitrogen')} placeholder="kg/ha" value={formData.nitrogen} onChange={handleInputChange} />
+                                <InputField name="potassium" label={t('prediction_pages.potassium')} placeholder="kg/ha" value={formData.potassium} onChange={handleInputChange} />
+                                <InputField name="phosphorous" label={t('prediction_pages.phosphorus')} placeholder="kg/ha" value={formData.phosphorous} onChange={handleInputChange} />
                             </div>
 
                             <motion.button
@@ -143,7 +165,12 @@ const FertilizerRecommendation = () => {
                     </motion.div>
 
                     {hasSubmitted && (
-                        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-white p-6 rounded-lg shadow-lg">
+                        <motion.div 
+                            initial={{ opacity: 0, x: 20 }} 
+                            animate={{ opacity: 1, x: 0 }} 
+                            transition={{ delay: 0.4 }} 
+                            className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg flex-shrink-0"
+                        >
                             <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('prediction_pages.result')}</h2>
                             {isLoading ? (
                                 <div className="text-center py-8"><p>{t('prediction_pages.analyzing_data')}</p></div>

@@ -5,18 +5,32 @@ import { Leaf, Thermometer, Droplets, Wind, MapPin } from 'lucide-react';
 import { useAuth } from '../context/AuthContext'; 
 import { getCropRecommendation } from '../api/ml';
 
+const initialFormState = {
+    N: '',
+    P: '',
+    K: '',
+    ph: ''
+};
+
+const initialWeatherState = {
+    temperature: '',
+    humidity: '',
+    rainfall: ''
+};
+
 const CropRecommendation = () => {
     const { t } = useTranslation();
     const { isLoggedIn } = useAuth();
     const [result, setResult] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    
-    const [weatherInputs, setWeatherInputs] = useState({
-        temperature: '',
-        humidity: '',
-        rainfall: ''
-    });
+    const [formData, setFormData] = useState(initialFormState);
+    const [weatherInputs, setWeatherInputs] = useState(initialWeatherState);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({...prev, [name]: value}));
+    };
 
     const handleWeatherInputChange = (e) => {
         const { name, value } = e.target;
@@ -24,7 +38,6 @@ const CropRecommendation = () => {
     };
 
     const handleGetLocation = () => {
-        alert("Fetching location data... (mocked)");
         setWeatherInputs({
             temperature: '32',
             humidity: '65',
@@ -36,27 +49,29 @@ const CropRecommendation = () => {
         e.preventDefault();
         setHasSubmitted(true);
         setIsLoading(true);
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
         
+        let submissionData = { ...formData };
         if (!isLoggedIn) {
-            data.temperature = weatherInputs.temperature;
-            data.humidity = weatherInputs.humidity;
-            data.rainfall = weatherInputs.rainfall;
+            submissionData = { ...submissionData, ...weatherInputs };
         }
 
-        const recommendation = await getCropRecommendation(data);
+        const recommendation = await getCropRecommendation(submissionData);
         setResult(recommendation);
         setIsLoading(false);
+
+        setFormData(initialFormState);
+        setWeatherInputs(initialWeatherState);
     };
 
-    const InputField = ({ name, label, type = "number", placeholder }) => (
+    const InputField = ({ name, label, type = "number", placeholder, value, onChange }) => (
         <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <input
                 type={type}
                 name={name}
                 placeholder={placeholder}
+                value={value}
+                onChange={onChange}
                 required
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
             />
@@ -81,19 +96,24 @@ const CropRecommendation = () => {
 
     return (
         <div className="bg-gray-50 min-h-screen py-12 px-4">
-            <div className="container mx-auto max-w-4xl">
+            <div className="container mx-auto max-w-7xl">
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                     <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-4">{t('nav.crop_recommendation')}</h1>
                     <p className="text-lg text-gray-600 text-center mb-8">{t('prediction_pages.crop_rec_subtitle')}</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                <div className="flex flex-wrap justify-center items-start gap-8">
+                    <motion.div 
+                        initial={{ opacity: 0, x: -20 }} 
+                        animate={{ opacity: 1, x: 0 }} 
+                        transition={{ delay: 0.2 }}
+                        className="w-full max-w-lg flex-shrink-0"
+                    >
                         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg space-y-4">
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <InputField name="N" label={t('prediction_pages.nitrogen')} placeholder="e.g., 90" />
-                                <InputField name="P" label={t('prediction_pages.phosphorus')} placeholder="e.g., 42" />
-                                <InputField name="K" label={t('prediction_pages.potassium')} placeholder="e.g., 43" />
+                                <InputField name="N" label={t('prediction_pages.nitrogen')} placeholder="e.g., 90" value={formData.N} onChange={handleInputChange}/>
+                                <InputField name="P" label={t('prediction_pages.phosphorus')} placeholder="e.g., 42" value={formData.P} onChange={handleInputChange}/>
+                                <InputField name="K" label={t('prediction_pages.potassium')} placeholder="e.g., 43" value={formData.K} onChange={handleInputChange}/>
                             </div>
                             
                             {!isLoggedIn && (
@@ -115,7 +135,7 @@ const CropRecommendation = () => {
                                 </>
                             )}
 
-                            <InputField name="ph" label={t('prediction_pages.ph')} placeholder="e.g., 6.5" />
+                            <InputField name="ph" label={t('prediction_pages.ph')} placeholder="e.g., 6.5" value={formData.ph} onChange={handleInputChange}/>
 
                             <motion.button
                                 type="submit"
@@ -129,7 +149,12 @@ const CropRecommendation = () => {
                     </motion.div>
 
                     {hasSubmitted && (
-                        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-white p-6 rounded-lg shadow-lg">
+                        <motion.div 
+                            initial={{ opacity: 0, x: 20 }} 
+                            animate={{ opacity: 1, x: 0 }} 
+                            transition={{ delay: 0.4 }} 
+                            className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg flex-shrink-0"
+                        >
                             <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('prediction_pages.result')}</h2>
                             {isLoading ? (
                                 <div className="text-center py-8">
