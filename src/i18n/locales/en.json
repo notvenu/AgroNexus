@@ -7,6 +7,7 @@
     "crop_recommendation": "Crop Recommendation",
     "yield_prediction": "Yield Prediction",
     "fertilizer_recommendation": "Fertilizer Recommendation",
+    "market_prices": "Market Prices",
     "dashboard": "Dashboard",
     "labs": "Find Labs",
     "disease_detection": "Detect Disease",

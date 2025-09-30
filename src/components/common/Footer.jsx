@@ -38,6 +38,7 @@ const Footer = () => {
                             <li><Link to="/predict-yield" className="text-gray-400 hover:text-white">{t('nav.yield_prediction')}</Link></li>
                             <li><Link to="/recommend-fertilizer" className="text-gray-400 hover:text-white">{t('nav.fertilizer_recommendation')}</Link></li>
                             <li><Link to="/disease-detection" className="text-gray-400 hover:text-white">{t('nav.disease_detection')}</Link></li>
+                            <li><Link to="/market-prices" className="text-gray-400 hover:text-white">{t('nav.market_prices')}</Link></li>
                         </ul>
                     </div>
 
