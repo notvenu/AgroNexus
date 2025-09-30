@@ -12,12 +12,12 @@ const Register = React.lazy(() => import('./Pages/Register.jsx'));
 const Dashboard = React.lazy(() => import('./Pages/Dashboard.jsx'));
 const LabDirectory = React.lazy(() => import('./Pages/LabDirectory.jsx'));
 const DiseaseDetection = React.lazy(() => import('./Pages/DiseaseDetection.jsx'));
-const AboutUs = React.lazy(() => import('./Pages/AboutUs.jsx'));
-const ContactUs = React.lazy(() => import('./Pages/ContactUs.jsx'));
+const AboutUs = React.lazy(() => import('./Pages/Aboutus.jsx'));
+const ContactUs = React.lazy(() => import('./Pages/Contactus.jsx'));
 const CropYieldPrediction = React.lazy(() => import('./Pages/CropYieldPrediction.jsx'));
 const CropRecommendation = React.lazy(() => import('./Pages/CropRecommendation.jsx'));
 const FertilizerRecommendation = React.lazy(() => import('./Pages/FertilizerRecommendation.jsx'));
-const MarketPrices = React.lazy(() => import('./Pages/MarketPrices.jsx')); // New import
+const MarketPrices = React.lazy(() => import('./Pages/MarketPrices.jsx'));
 
 const AppContent = () => {
     const location = useLocation();
