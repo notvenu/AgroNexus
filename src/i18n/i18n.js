@@ -6,6 +6,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './locales/en.json';
 import translationHI from './locales/hi.json';
 import translationPA from './locales/pa.json';
+import translationTE from './locales/te.json';
+import translationOD from './locales/od.json'
 
 const resources = {
   en: {
@@ -17,6 +19,12 @@ const resources = {
   pa: {
     translation: translationPA,
   },
+  te: {
+    translation: translationTE,
+  },
+  od: {
+    translation: translationOD,
+  }
 };
 
 i18n

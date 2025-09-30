@@ -113,6 +113,5 @@ export const getBotResponse = async (userInput) => {
     return 'soil_ph_info';
   }
 
-  // If no keywords match, return a key for the default response.
   return 'default';
 };

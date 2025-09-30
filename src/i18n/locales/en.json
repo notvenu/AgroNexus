@@ -331,6 +331,7 @@
     "predict_yield_button": "Predict Yield",
     "result": "Result",
     "analyzing_data": "Analyzing your data...",
+    "confidence": "Confidence:",
     "recommended_crop_is": "The recommended crop for your farm is:",
     "recommended_fertilizer_is": "The recommended fertilizer is:",
     "predicted_yield_is": "The predicted yield is approximately:",

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Bot, Send, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { getBotResponse } from '../../api/ml';
+import { getBotResponse } from '../../api/ml_models';
 
 const Chatbot = () => {
   const { t, i18n } = useTranslation();

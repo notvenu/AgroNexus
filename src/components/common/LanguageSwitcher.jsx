@@ -6,6 +6,8 @@ const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
   { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
+  { code: 'od', name: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
 ];
 
 const LanguageSwitcher = () => {
