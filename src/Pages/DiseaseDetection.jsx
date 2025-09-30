@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Upload, Bug, ShieldCheck } from 'lucide-react';
-import { detectDisease } from '../api/ml';
+import { detectDisease } from '../api/ml_models';
 
 const DiseaseDetection = () => {
   const { t } = useTranslation();
