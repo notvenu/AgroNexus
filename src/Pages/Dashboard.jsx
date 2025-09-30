@@ -44,7 +44,7 @@ const Dashboard = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">{t('dashboard.welcome', { name: farmerData.personal.fullName.split(' ')[0] })}</h1>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">{t('dashboard.welcome', { name: farmerData.personal.fullName.split(' ')[1] })}</h1>
                     <p className="text-gray-500 mb-8">{t('dashboard.subtitle')}</p>
                 </motion.div>
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import ScrollToTop from './util/ScrollToTop';
 
 // Lazy load the page components for better performance
 const LandingPage = React.lazy(() => import('./Pages/LandingPage.jsx'));
@@ -59,6 +60,7 @@ const AppContent = () => {
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <AppContent />
         </Router>
     );

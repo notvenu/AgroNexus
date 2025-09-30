@@ -7,9 +7,12 @@ const AboutUs = () => {
     const { t } = useTranslation();
 
     const teamMembers = [
-        { name: 'Dr. Alisha Verma', role: t('about.team.role1'), image: 'https://placehold.co/400x400/a7f3d0/14532d?text=AV' },
-        { name: 'Rohan Sharma', role: t('about.team.role2'), image: 'https://placehold.co/400x400/a7f3d0/14532d?text=RS' },
-        { name: 'Priya Mehta', role: t('about.team.role3'), image: 'https://placehold.co/400x400/a7f3d0/14532d?text=PM' },
+        { name: 'M.Lakshmi Srinija', role: 'Team Lead', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=MS' },
+        { name: 'M.Triveni', role: 'UI/UX Designer', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=MT' },
+        { name: 'M. Lavanya Sree', role: 'UI/UX Designer', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=ML' },
+        { name: 'K. Venu Bhargava Jishith', role: 'Backend Developer', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=KV' },
+        { name: 'M. Mukesh Kumar', role: 'Frontend Developer', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=MK' },
+        { name: 'V. Rohith', role: 'Research Analyst', image: 'https://placehold.co/400x400/a7f3d0/14532d?text=VR' },
     ];
 
     const fadeIn = {
