@@ -1,79 +1,101 @@
-/**
- * This file simulates calls to a backend with ML models.
- * In a real application, these functions would make network requests (e.g., using axios)
- * to a server that hosts the trained machine learning models.
- */
+// This file simulates API calls to machine learning models.
+// In a real application, this would make network requests to a backend server.
 
-// Simulates a delay to mimic network latency.
-const apiDelay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-/**
- * Simulates predicting crop yield.
- * @param {object} soilData - The soil test results.
- * @param {string} crop - The name of the crop.
- * @returns {Promise<number>} - The predicted yield in tons/acre.
- */
-export const predictYield = async (soilData, crop) => {
-  await apiDelay(500);
-  // Simple mock logic: returns a value based on soil pH and crop type.
-  const baseYield = crop.toLowerCase() === 'wheat' ? 2.2 : 1.8;
-  const phFactor = 1 - Math.abs(6.8 - soilData.ph) * 0.2;
-  return parseFloat((baseYield * phFactor).toFixed(2));
+const simulateApiCall = (result) => {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(result);
+        }, 1500); // Simulate a 1.5 second network delay
+    });
 };
 
-/**
- * Simulates recommending fertilizer.
- * @param {object} soilData - The soil test results.
- * @returns {Promise<object>} - An object with recommended nutrient dosages.
- */
-export const recommendFertilizer = async (soilData) => {
-  await apiDelay(600);
-  // Mock logic based on organic carbon.
-  if (soilData.organicCarbon > 0.7) {
-    return { Urea: '45kg/acre', DAP: '20kg/acre', Potash: '15kg/acre' };
-  }
-  return { Urea: '50kg/acre', DAP: '25kg/acre', Potash: '20kg/acre' };
-};
-
-/**
- * Simulates recommending a crop for the next season.
- * @returns {Promise<object>} - An object with the recommended crop and its market price.
- */
-export const recommendCrop = async () => {
-  await apiDelay(700);
-  // Mock logic: randomly pick between two crops.
-  const crops = [
-    { crop: 'Mustard (Sarson)', marketPrice: 5500 },
-    { crop: 'Cotton (Kapas)', marketPrice: 7200 },
-  ];
-  return crops[Math.floor(Math.random() * crops.length)];
-};
-
-/**
- * Simulates detecting a crop disease from an image.
- * @param {File} imageFile - The uploaded image file.
- * @returns {Promise<object>} - An object with the detected disease and remedy.
- *
- * NOTE: The function name in translation files must match the `disease` key returned here.
- * For example, if it returns { disease: 'mock_disease_name', ... },
- * the key in translation.json should be "mock_disease_name".
- */
 export const detectDisease = async (imageFile) => {
-  await apiDelay(1500);
-  console.log('Simulating disease detection for:', imageFile.name);
-  return {
-    disease: 'mock_disease_name',
-    remedy: 'mock_remedy_info',
-  };
+    console.log("Simulating disease detection for:", imageFile.name);
+
+    // Simulate different results based on a mock condition
+    if (imageFile.name.toLowerCase().includes("healthy")) {
+         return simulateApiCall({
+            disease: "Healthy",
+            confidence: 98.5,
+            remedy: "No action needed. Keep monitoring the crop.",
+            description: "The plant appears to be healthy with no visible signs of disease."
+        });
+    }
+
+    return simulateApiCall({
+        disease: "Late Blight",
+        confidence: 95.2,
+        remedy: "Apply a fungicide containing mancozeb or chlorothalonil. Ensure proper spacing for air circulation.",
+        description: "Late blight is a fungal disease that primarily affects potatoes and tomatoes, causing lesions on leaves, stems, and tubers."
+    });
 };
 
-/**
- * Simulates the AgriBot's Natural Language Understanding (NLU).
- * In a real app, this would be a call to a service like Dialogflow or a custom NLU model.
- * It maps keywords in the user's input to predefined intent keys.
- * @param {string} userInput - The text from the user.
- * @returns {Promise<string>} - A key corresponding to a response in the translation files.
- */
+export const getYieldPrediction = async (formData) => {
+    console.log("Simulating yield prediction with data:", formData);
+    
+    // Updated mock logic using correct keys from the form
+    const baseYield = 2500; // kg/acre
+    const rainfallFactor = parseFloat(formData.rainfall_mm) > 500 ? 1.2 : 0.8;
+    const tempFactor = parseFloat(formData.temperature_celsius) > 20 ? 1.1 : 0.9;
+    const calculatedYield = baseYield * rainfallFactor * tempFactor;
+
+    return simulateApiCall({
+        yield: calculatedYield.toFixed(2),
+        confidence: 88.9
+    });
+};
+
+export const getCropRecommendation = async (formData) => {
+    console.log("Simulating crop recommendation with data:", formData);
+
+    // More nuanced mock logic
+    let recommendedCrop = "Lentil"; // Default for low water conditions
+    const n = parseFloat(formData.N);
+    const p = parseFloat(formData.P);
+    const k = parseFloat(formData.K);
+    const rainfall = parseFloat(formData.rainfall);
+
+    if (rainfall > 200 && p > 50) {
+        recommendedCrop = "Rice";
+    } else if (rainfall > 100 && k > 40) {
+        recommendedCrop = "Wheat";
+    } else if (rainfall > 50 && n > 80) {
+        recommendedCrop = "Maize";
+    } else {
+        recommendedCrop = "Cotton";
+    }
+    
+    return simulateApiCall({
+        crop: recommendedCrop,
+        confidence: 92.5
+    });
+};
+
+export const getFertilizerRecommendation = async (formData) => {
+    console.log("Simulating fertilizer recommendation with data:", formData);
+
+    // More nuanced mock logic
+    let recommendedFertilizer = "17-17-17"; // A balanced default
+    const nitrogen = parseFloat(formData.nitrogen);
+    const phosphorous = parseFloat(formData.phosphorous);
+    const potassium = parseFloat(formData.potassium);
+
+    if (nitrogen > 60 && phosphorous < 30) {
+        recommendedFertilizer = "Urea"; // High nitrogen need
+    } else if (phosphorous > 60 && nitrogen < 40) {
+        recommendedFertilizer = "DAP"; // High phosphorous need
+    } else if (nitrogen > 40 && phosphorous > 40 && potassium < 30) {
+        recommendedFertilizer = "28-28-0";
+    } else if (nitrogen < 30 && phosphorous < 30 && potassium < 30) {
+        recommendedFertilizer = "20-20-20"; // General purpose
+    }
+
+    return simulateApiCall({
+        fertilizer: recommendedFertilizer,
+        confidence: 94.7
+    });
+};
+
 export const getBotResponse = async (userInput) => {
   await apiDelay(300);
   const input = userInput.toLowerCase();

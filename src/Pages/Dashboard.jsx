@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     User, MapPin, Wind, Droplets, Thermometer,
-    BarChart3, FlaskConical, Stethoscope, Briefcase, TrendingUp, Sun, Cloud, CloudRain, Leaf // Added 'Leaf' here
+    BarChart3, FlaskConical, Stethoscope, Briefcase, TrendingUp, Sun, Cloud, CloudRain, Leaf, Lightbulb, TrendingDown, Clock
 } from 'lucide-react';
-import farmerData from '../data/farmer.json'; // Sample data
+import farmerData from '../data/farmer.json';
 
 const Dashboard = () => {
     const { t } = useTranslation();
@@ -21,8 +21,14 @@ const Dashboard = () => {
         alert: "High humidity today. Monitor crops for fungal disease risk."
     };
 
+    const recommendations = [
+        { icon: <TrendingUp className="text-green-500" />, text: t('dashboard.recommendations.market_prices') },
+        { icon: <Droplets className="text-blue-500" />, text: t('dashboard.recommendations.irrigation') },
+        { icon: <Clock className="text-orange-500" />, text: t('dashboard.recommendations.soil_test') }
+    ];
+
     const serviceCards = [
-        { title: t('dashboard.soil_health.title'), icon: <FlaskConical className="text-green-500" />, link: "/labs", desc: t('dashboard.soil_health.desc') },
+        { title: t('dashboard.soil_health.title'), icon: <FlaskConical className="text-green-500" />, link: "/soil-history", desc: t('dashboard.soil_health.desc') },
         { title: t('dashboard.yield_prediction.title'), icon: <BarChart3 className="text-yellow-500" />, link: "/predict-yield", desc: t('dashboard.yield_prediction.desc') },
         { title: t('dashboard.fertilizer_plan.title'), icon: <Briefcase className="text-blue-500" />, link: "/recommend-fertilizer", desc: t('dashboard.fertilizer_plan.desc') },
         { title: t('dashboard.crop_recommendation.title'), icon: <Leaf className="text-teal-500" />, link: "/recommend-crop", desc: t('dashboard.crop_recommendation.desc') },
@@ -38,7 +44,7 @@ const Dashboard = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">{t('dashboard.welcome', { name: farmerData.name.split(' ')[0] })}</h1>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">{t('dashboard.welcome', { name: farmerData.personal.fullName.split(' ')[0] })}</h1>
                     <p className="text-gray-500 mb-8">{t('dashboard.subtitle')}</p>
                 </motion.div>
 
@@ -93,24 +99,46 @@ const Dashboard = () => {
                     </motion.div>
                 </div>
 
+                {/* Recommendations Section */}
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('dashboard.recommendations.title')}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {recommendations.map((rec, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 + index * 0.1 }}
+                                className="bg-white p-4 rounded-lg shadow-sm flex items-center"
+                            >
+                                <div className="flex-shrink-0 mr-4">{rec.icon}</div>
+                                <p className="text-gray-700">{rec.text}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Service Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {serviceCards.map((card, index) => (
-                        <motion.div
-                            key={card.title}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4 + index * 0.1 }}
-                        >
-                            <Link to={card.link} className="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
-                                <div className="flex items-center mb-3">
-                                    {card.icon}
-                                    <h3 className="ml-3 text-lg font-bold text-gray-800">{card.title}</h3>
-                                </div>
-                                <p className="text-gray-600 text-sm">{card.desc}</p>
-                            </Link>
-                        </motion.div>
-                    ))}
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('dashboard.services_title')}</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {serviceCards.map((card, index) => (
+                            <motion.div
+                                key={card.title}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.4 + index * 0.1 }}
+                            >
+                                <Link to={card.link} className="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                                    <div className="flex items-center mb-3">
+                                        {card.icon}
+                                        <h3 className="ml-3 text-lg font-bold text-gray-800">{card.title}</h3>
+                                    </div>
+                                    <p className="text-gray-600 text-sm">{card.desc}</p>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,4 +146,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

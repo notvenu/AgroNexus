@@ -1,93 +1,152 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Leaf, Droplets, Thermometer, TestTube, Wind } from 'lucide-react';
-import { recommendCrop } from '../api/ml';
-
-const InputField = ({ label, name, type, value, onChange, placeholder }) => (
-    <div>
-        <label className="block text-sm font-medium text-gray-700">{label}</label>
-        <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            required
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-        />
-    </div>
-);
+import { Leaf, Thermometer, Droplets, Wind, MapPin } from 'lucide-react';
+import { useAuth } from '../context/AuthContext'; 
+import { getCropRecommendation } from '../api/ml';
 
 const CropRecommendation = () => {
     const { t } = useTranslation();
-    const [formData, setFormData] = useState({
-        N: '',
-        P: '',
-        K: '',
+    const { isLoggedIn } = useAuth();
+    const [result, setResult] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    
+    const [weatherInputs, setWeatherInputs] = useState({
         temperature: '',
         humidity: '',
-        ph: '',
         rainfall: ''
     });
-    const [recommendation, setRecommendation] = useState(null);
-    const [loading, setLoading] = useState(false);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleWeatherInputChange = (e) => {
+        const { name, value } = e.target;
+        setWeatherInputs(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleGetLocation = () => {
+        alert("Fetching location data... (mocked)");
+        setWeatherInputs({
+            temperature: '32',
+            humidity: '65',
+            rainfall: '90'
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setRecommendation(null);
-        const result = await recommendCrop(formData);
-        setRecommendation(result);
-        setLoading(false);
+        setHasSubmitted(true);
+        setIsLoading(true);
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        if (!isLoggedIn) {
+            data.temperature = weatherInputs.temperature;
+            data.humidity = weatherInputs.humidity;
+            data.rainfall = weatherInputs.rainfall;
+        }
+
+        const recommendation = await getCropRecommendation(data);
+        setResult(recommendation);
+        setIsLoading(false);
     };
 
+    const InputField = ({ name, label, type = "number", placeholder }) => (
+        <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+            <input
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                required
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+            />
+        </div>
+    );
+    
+    const WeatherInputField = ({ name, label, type = "number", placeholder, value, onChange, icon }) => (
+         <div className="relative">
+            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+            <div className="absolute left-3 top-9 text-gray-400">{icon}</div>
+            <input
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                required
+                className="w-full pl-10 pr-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+            />
+        </div>
+    );
+
     return (
-        <div className="bg-gray-50 py-12">
-            <div className="container mx-auto px-4">
+        <div className="bg-gray-50 min-h-screen py-12 px-4">
+            <div className="container mx-auto max-w-4xl">
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-                    <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-4">{t('crop.title')}</h1>
-                    <p className="text-lg text-center text-gray-600 mb-12">{t('crop.subtitle')}</p>
+                    <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-4">{t('nav.crop_recommendation')}</h1>
+                    <p className="text-lg text-gray-600 text-center mb-8">{t('prediction_pages.crop_rec_subtitle')}</p>
                 </motion.div>
 
-                <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <InputField label={t('crop.n')} name="N" type="number" value={formData.N} onChange={handleChange} placeholder="e.g., 90" />
-                        <InputField label={t('crop.p')} name="P" type="number" value={formData.P} onChange={handleChange} placeholder="e.g., 42" />
-                        <InputField label={t('crop.k')} name="K" type="number" value={formData.K} onChange={handleChange} placeholder="e.g., 43" />
-                        <InputField label={t('crop.temperature')} name="temperature" type="number" value={formData.temperature} onChange={handleChange} placeholder="e.g., 20.8" />
-                        <InputField label={t('crop.humidity')} name="humidity" type="number" value={formData.humidity} onChange={handleChange} placeholder="e.g., 82" />
-                        <InputField label={t('crop.ph')} name="ph" type="number" step="0.1" value={formData.ph} onChange={handleChange} placeholder="e.g., 6.5" />
-                        <InputField label={t('crop.rainfall')} name="rainfall" type="number" value={formData.rainfall} onChange={handleChange} placeholder="e.g., 202.9" />
-                        
-                        <motion.button
-                            type="submit"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="md:col-span-2 w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors"
-                        >
-                            {loading ? t('crop.recommending') : t('crop.recommend_button')}
-                        </motion.button>
-                    </form>
-
-                    {recommendation && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-8 p-6 bg-green-50 border-l-4 border-green-500 rounded-r-lg"
-                        >
-                            <div className="flex items-center">
-                                <Leaf className="h-10 w-10 text-green-600 mr-4"/>
-                                <div>
-                                    <h3 className="text-xl font-bold text-gray-800">{t('crop.recommendation_result')}</h3>
-                                    <p className="text-2xl font-semibold text-green-700">{recommendation.crop}</p>
-                                    <p className="text-gray-600 mt-1">{t('crop.confidence')}: {recommendation.confidence}%</p>
-                                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg space-y-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <InputField name="N" label={t('prediction_pages.nitrogen')} placeholder="e.g., 90" />
+                                <InputField name="P" label={t('prediction_pages.phosphorus')} placeholder="e.g., 42" />
+                                <InputField name="K" label={t('prediction_pages.potassium')} placeholder="e.g., 43" />
                             </div>
+                            
+                            {!isLoggedIn && (
+                                <>
+                                    <div className="border-t pt-4">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h3 className="text-md font-semibold text-gray-700">{t('prediction_pages.weather_details')}</h3>
+                                            <button type="button" onClick={handleGetLocation} className="text-sm flex items-center text-green-600 hover:text-green-800 font-semibold">
+                                                <MapPin size={16} className="mr-1" />
+                                                {t('prediction_pages.get_location')}
+                                            </button>
+                                        </div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <WeatherInputField name="temperature" label={t('prediction_pages.temperature')} placeholder="°C" value={weatherInputs.temperature} onChange={handleWeatherInputChange} icon={<Thermometer size={16}/>} />
+                                            <WeatherInputField name="humidity" label={t('prediction_pages.humidity')} placeholder="%" value={weatherInputs.humidity} onChange={handleWeatherInputChange} icon={<Droplets size={16}/>} />
+                                            <WeatherInputField name="rainfall" label={t('prediction_pages.rainfall')} placeholder="mm" value={weatherInputs.rainfall} onChange={handleWeatherInputChange} icon={<Wind size={16}/>} />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            <InputField name="ph" label={t('prediction_pages.ph')} placeholder="e.g., 6.5" />
+
+                            <motion.button
+                                type="submit"
+                                className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors"
+                                whileHover={{ scale: 1.02 }}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? t('prediction_pages.predicting') : t('prediction_pages.recommend_crop_button')}
+                            </motion.button>
+                        </form>
+                    </motion.div>
+
+                    {hasSubmitted && (
+                        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-white p-6 rounded-lg shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('prediction_pages.result')}</h2>
+                            {isLoading ? (
+                                <div className="text-center py-8">
+                                    <p>{t('prediction_pages.analyzing_data')}</p>
+                                </div>
+                            ) : result ? (
+                                <div className="text-center">
+                                    <Leaf size={48} className="mx-auto text-green-500 mb-4" />
+                                    <p className="text-lg text-gray-600">{t('prediction_pages.recommended_crop_is')}</p>
+                                    <p className="text-4xl font-extrabold text-green-600 my-2">{result.crop}</p>
+                                    <p className="text-gray-500">{t('prediction_pages.based_on_inputs')}</p>
+                                </div>
+                            ) : (
+                                <div className="text-center py-8">
+                                    <p className="text-gray-500">{t('prediction_pages.results_appear_here')}</p>
+                                </div>
+                            )}
                         </motion.div>
                     )}
                 </div>
@@ -97,3 +156,4 @@ const CropRecommendation = () => {
 };
 
 export default CropRecommendation;
+

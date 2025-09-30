@@ -3,22 +3,25 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import LoadingSpinner from './components/common/LoadingSpinner';
-import Chatbot from './components/chatbot/Chatbot';
 
-// Lazy load the page components
+// Lazy load the page components for better performance
 const LandingPage = React.lazy(() => import('./Pages/LandingPage.jsx'));
 const Login = React.lazy(() => import('./Pages/Login.jsx'));
 const Register = React.lazy(() => import('./Pages/Register.jsx'));
 const Dashboard = React.lazy(() => import('./Pages/Dashboard.jsx'));
 const LabDirectory = React.lazy(() => import('./Pages/LabDirectory.jsx'));
 const DiseaseDetection = React.lazy(() => import('./Pages/DiseaseDetection.jsx'));
-const AboutUs = React.lazy(() => import('./Pages/Aboutus.jsx'));
-const ContactUs = React.lazy(() => import('./Pages/Contactus.jsx'));
+const AboutUs = React.lazy(() => import('./Pages/AboutUs.jsx'));
+const ContactUs = React.lazy(() => import('./Pages/ContactUs.jsx'));
 const CropYieldPrediction = React.lazy(() => import('./Pages/CropYieldPrediction.jsx'));
 const CropRecommendation = React.lazy(() => import('./Pages/CropRecommendation.jsx'));
 const FertilizerRecommendation = React.lazy(() => import('./Pages/FertilizerRecommendation.jsx'));
 const MarketPrices = React.lazy(() => import('./Pages/MarketPrices.jsx'));
+const NewsPage = React.lazy(() => import('./Pages/NewsPage.jsx'));
+const SoilTestHistoryPage = React.lazy(() => import('./Pages/SoilTestHistory.jsx')); // Added Soil History Page
+const Chatbot = React.lazy(() => import('./components/chatbot/Chatbot'));
 
+// This component handles the conditional rendering of Navbar and Footer
 const AppContent = () => {
     const location = useLocation();
     const noNavFooterPaths = ['/login', '/register'];
@@ -41,7 +44,9 @@ const AppContent = () => {
                         <Route path="/predict-yield" element={<CropYieldPrediction />} />
                         <Route path="/recommend-crop" element={<CropRecommendation />} />
                         <Route path="/recommend-fertilizer" element={<FertilizerRecommendation />} />
-                        <Route path="/market-prices" element={<MarketPrices />} /> {/* New Route */}
+                        <Route path="/market-prices" element={<MarketPrices />} />
+                        <Route path="/news" element={<NewsPage />} />
+                        <Route path="/soil-history" element={<SoilTestHistoryPage />} /> {/* Added Soil History Route */}
                     </Routes>
                 </Suspense>
             </main>

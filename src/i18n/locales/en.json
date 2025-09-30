@@ -13,11 +13,12 @@
     "disease_detection": "Detect Disease",
     "about": "About Us",
     "contact": "Contact Us",
+    "news": "News",
     "login": "Login",
     "register": "Register",
     "logout": "Logout"
   },
- "landing": {
+  "landing": {
     "cta": {
       "main": "Get Started Now",
       "secondary": "Find a Soil Lab"
@@ -111,8 +112,15 @@
     "humidity": "Humidity",
     "wind": "Wind",
     "alert": "Alert",
+    "services_title": "Our Services",
+    "recommendations": {
+      "title": "Today's Recommendations",
+      "market_prices": "Cotton prices are high. Consider selling your current stock for a good profit.",
+      "irrigation": "No rain is forecast for the next 3 days. Plan to irrigate your fields tomorrow morning.",
+      "soil_test": "Your last soil test was over 2 years ago. Schedule a new test to optimize fertilizer use."
+    },
     "soil_health": {
-      "title": "Soil Health",
+      "title": "Soil Test History",
       "desc": "View your latest soil test results and track health over time."
     },
     "yield_prediction": {
@@ -267,6 +275,29 @@
       "form_message": "Your Message",
       "form_submit": "Send Message"
   },
+  "news": {
+    "title": "Agricultural News",
+    "subtitle": "Stay updated with the latest news and trends in agriculture.",
+    "regional": "Regional",
+    "national": "National",
+    "international": "International",
+    "loading": "Loading news..."
+  },
+  "soil_history": {
+    "title": "Soil Test History",
+    "subtitle": "Review your past soil analysis records to track farm health over time.",
+    "test_id": "Test ID",
+    "date": "Date",
+    "lab": "Testing Lab",
+    "ph": "pH",
+    "organic_carbon": "Organic Carbon",
+    "nitrogen": "Nitrogen (N)",
+    "phosphorus": "Phosphorus (P)",
+    "potassium": "Potassium (K)",
+    "next_test_due": "Next soil test recommended in",
+    "months": "months",
+    "due_now": "Due for re-test"
+  },
   "footer": {
     "quick_links": "Quick Links",
     "legal": "Legal",
@@ -274,5 +305,37 @@
     "terms": "Terms of Service",
     "follow_us": "Follow Us",
     "rights_reserved": "All rights reserved."
+  },
+  "prediction_pages": {
+    "weather_details": "Weather Details",
+    "get_location": "Use My Location",
+    "crop_rec_subtitle": "Enter your soil and climate data to find the most suitable crop for your farm.",
+    "fertilizer_rec_subtitle": "Get a precise fertilizer recommendation based on your soil and crop type.",
+    "yield_pred_subtitle": "Fill in the details below to get an AI-powered forecast of your crop yield.",
+    "nitrogen": "Nitrogen (N)",
+    "phosphorus": "Phosphorus (P)",
+    "potassium": "Potassium (K)",
+    "ph": "Soil pH",
+    "temperature": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "rainfall": "Rainfall (mm)",
+    "moisture": "Soil Moisture (%)",
+    "soil_type": "Soil Type",
+    "crop_type": "Crop Type",
+    "region": "Region",
+    "fertilizer_used": "Fertilizer Used",
+    "days_to_harvest": "Days to Harvest",
+    "predicting": "Predicting...",
+    "recommend_crop_button": "Recommend Crop",
+    "recommend_fertilizer_button": "Recommend Fertilizer",
+    "predict_yield_button": "Predict Yield",
+    "result": "Result",
+    "analyzing_data": "Analyzing your data...",
+    "recommended_crop_is": "The recommended crop for your farm is:",
+    "recommended_fertilizer_is": "The recommended fertilizer is:",
+    "predicted_yield_is": "The predicted yield is approximately:",
+    "based_on_inputs": "based on the provided inputs.",
+    "results_appear_here": "Your results will appear here after submission."
   }
 }
+
