@@ -13,36 +13,49 @@
     "about": "About Us",
     "contact": "Contact Us",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "logout": "Logout"
   },
-  "landing": {
+ "landing": {
     "cta": {
-      "main": "Get Started",
-      "secondary": "Find a Lab"
+      "main": "Get Started Now",
+      "secondary": "Find a Soil Lab"
     },
-    "featuresTitle": "Revolutionize Your Farming",
-    "featuresSubtitle": "Leverage technology for better yields and healthier crops.",
+    "featuresTitle": "Everything you need for a smarter harvest",
+    "featuresSubtitle": "Our platform provides a comprehensive suite of tools to support every stage of your farming cycle.",
     "feature1": {
       "title": "Yield Prediction",
-      "desc": "Forecast your crop yield with high accuracy using AI models."
+      "desc": "Forecast crop yields with high accuracy using soil, weather, and historical data."
     },
     "feature2": {
       "title": "Fertilizer Plans",
-      "desc": "Get custom fertilizer recommendations based on soil health."
+      "desc": "Get precise NPK and micronutrient recommendations tailored to your crops and soil."
     },
     "feature3": {
       "title": "Disease Detection",
-      "desc": "Instantly identify crop diseases from a single image."
+      "desc": "Instantly identify crop diseases from images and receive actionable treatment advice."
     },
     "feature4": {
-      "title": "Expert Advice",
-      "desc": "Our AgriBot provides instant answers to your farming questions."
+      "title": "Crop Suggestions",
+      "desc": "Discover the most profitable and suitable crops for your next planting season."
     },
-    "testimonial": {
-      "quote": "This platform has completely changed how I manage my farm. The yield predictions are incredibly accurate!",
-      "author": "Gurpreet Singh",
-      "location": "Farmer, Moga, Punjab"
-    }
+    "testimonials": [
+      {
+        "quote": "This platform has revolutionized how I manage my farm. The yield predictions are incredibly accurate, and I've saved a lot on fertilizers.",
+        "author": "Ranjit Singh",
+        "location": "Punjab, India"
+      },
+      {
+        "quote": "The disease detection feature saved my tomato crop this season. I uploaded a photo and got an instant, actionable diagnosis. It's a lifesaver!",
+        "author": "Anjali Patil",
+        "location": "Maharashtra, India"
+      },
+      {
+        "quote": "As a young farmer, the crop and fertilizer recommendations are invaluable. It's like having an experienced agronomist in my pocket.",
+        "author": "Karthik Reddy",
+        "location": "Telangana, India"
+      }
+    ]
   },
   "login": {
     "title_login": "Sign in to your account",
@@ -84,17 +97,52 @@
   },
   "dashboard": {
     "welcome": "Welcome back, {{name}}!",
-    "soilHealth": "Soil Health",
-    "viewRecords": "View Records",
-    "retestReminder": "Next soil test recommended in {{months}} months.",
-    "yieldPrediction": "Yield Prediction",
+    "subtitle": "Here's your farm's overview and our latest recommendations.",
+    "email": "Email",
+    "phone": "Phone",
+    "farm_details": "Farm Details",
+    "location": "Location",
+    "land_area": "Land Area",
+    "acres": "acres",
+    "soil_type": "Soil Type",
+    "weather_alert": "Today's Weather & Alerts",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "alert": "Alert",
+    "soil_health": {
+      "title": "Soil Health",
+      "desc": "View your latest soil test results and track health over time."
+    },
+    "yield_prediction": {
+      "title": "Yield Prediction",
+      "desc": "Get AI-powered yield forecasts for your current and future crops."
+    },
+    "fertilizer_plan": {
+      "title": "Fertilizer Plan",
+      "desc": "Access tailored nutrient plans to maximize growth and soil health."
+    },
+    "crop_recommendation": {
+      "title": "Crop Recommendation",
+      "desc": "Discover the most profitable and suitable crops for the next season."
+    },
+    "disease_detection": {
+      "title": "Disease Detection",
+      "desc": "Upload an image to instantly identify crop diseases and get remedies."
+    },
+    "market_prices": {
+      "title": "Market Prices",
+      "desc": "Check the latest market rates for various crops in your region."
+    }
+  },
+  "market_prices": {
+    "title": "Live Market Prices",
+    "subtitle": "Search for the latest prices of crops in your local market.",
+    "search_placeholder": "Search for a crop (e.g., Wheat, Paddy...)",
     "crop": "Crop",
-    "predictedYield": "Predicted Yield",
-    "fertilizerPlan": "Fertilizer Plan",
-    "viewPlan": "View Plan",
-    "cropRec": "Crop Recommendation",
-    "nextSeason": "For Next Season",
-    "recommendedCrop": "Recommended Crop"
+    "price": "Price (per Quintal)",
+    "change": "Daily Change",
+    "no_results": "No crops found matching your search."
   },
   "chatbot": {
     "title": "AgriBot 🌱",

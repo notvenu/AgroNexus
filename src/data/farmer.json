@@ -1,4 +1,30 @@
 {
+    "personal": {
+        "fullName": "Ranjit Singh",
+        "email": "ranjit.singh.farmer@example.com",
+        "phone": "+91-9876543210"
+    },
+    "farm": {
+        "state": "Punjab",
+        "district": "Ludhiana",
+        "city": "Jagraon",
+        "pincode": "142026",
+        "landAreaAcres": 15,
+        "soilType": "Alluvial"
+    },
+    "soil_records": [
+        {
+            "test_id": "ST-2023-001",
+            "date": "2023-03-15",
+            "lab": "Punjab Agri Testing Lab, Ludhiana",
+            "ph": 7.8,
+            "organic_carbon_percent": 0.65,
+            "nitrogen_kg_ha": 280,
+            "phosphorus_kg_ha": 22,
+            "potassium_kg_ha": 150,
+            "next_test_due": "2025-03-15"
+        }
+    ],
   "name": "Gurpreet Singh",
   "farmLocation": "Moga, Punjab",
   "soilHealth": {
