@@ -9,14 +9,15 @@ const Footer = () => {
     return (
         <footer className="bg-gray-800 text-white">
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {/* Brand Section */}
-                    <div className="md:col-span-1">
+                {/* Adjusted grid to accommodate 5 columns on medium screens and up */}
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+                    {/* Brand Section (spans 2 columns on mobile, 1 on md) */}
+                    <div className="col-span-2 md:col-span-1">
                          <Link to="/" className="flex items-center space-x-2 mb-4">
                             <Leaf size={28} />
-                            <span className="text-xl font-bold">Smart Crop</span>
+                            <span className="text-xl font-bold">{t('appName')}</span>
                         </Link>
-                        <p className="text-gray-400">{t('tagline')}</p>
+                        <p className="text-gray-400 text-sm">{t('tagline')}</p>
                     </div>
 
                     {/* Quick Links */}
@@ -26,10 +27,20 @@ const Footer = () => {
                             <li><Link to="/about" className="text-gray-400 hover:text-white">{t('nav.about')}</Link></li>
                             <li><Link to="/contact" className="text-gray-400 hover:text-white">{t('nav.contact')}</Link></li>
                             <li><Link to="/labs" className="text-gray-400 hover:text-white">{t('nav.labs')}</Link></li>
-                            <li><Link to="/disease-detection" className="text-gray-400 hover:text-white">{t('nav.disease_detection')}</Link></li>
                         </ul>
                     </div>
                     
+                    {/* Services Section */}
+                    <div>
+                        <h3 className="font-semibold text-lg mb-4">{t('nav.services')}</h3>
+                        <ul className="space-y-2">
+                            <li><Link to="/recommend-crop" className="text-gray-400 hover:text-white">{t('nav.crop_recommendation')}</Link></li>
+                            <li><Link to="/predict-yield" className="text-gray-400 hover:text-white">{t('nav.yield_prediction')}</Link></li>
+                            <li><Link to="/recommend-fertilizer" className="text-gray-400 hover:text-white">{t('nav.fertilizer_recommendation')}</Link></li>
+                            <li><Link to="/disease-detection" className="text-gray-400 hover:text-white">{t('nav.disease_detection')}</Link></li>
+                        </ul>
+                    </div>
+
                     {/* Legal */}
                      <div>
                         <h3 className="font-semibold text-lg mb-4">{t('footer.legal')}</h3>

@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageToggle';
+import LanguageSwitcher from './LanguageSwitcher';
 import { Leaf, ChevronDown, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+
+    // This effect listens for language changes and closes the mobile menu if it's open.
+    useEffect(() => {
+        const handleLanguageChange = () => {
+            if (isMobileMenuOpen) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        i18n.on('languageChanged', handleLanguageChange);
+
+        // Cleanup listener on component unmount
+        return () => {
+            i18n.off('languageChanged', handleLanguageChange);
+        };
+    }, [i18n, isMobileMenuOpen]);
+
 
     const navLinkClass = ({ isActive }) =>
         `font-semibold transition-colors duration-300 ${isActive ? 'text-green-600' : 'text-gray-600 hover:text-green-500'}`;
 
     const mobileNavLinkClass = ({ isActive }) =>
         `block py-3 text-lg ${isActive ? 'text-green-600 font-bold' : 'text-gray-700 font-medium'}`;
+
+    const handleMobileServicesToggle = (e) => {
+        e.stopPropagation(); 
+        setIsMobileServicesOpen(!isMobileServicesOpen);
+    };
+
+    // This function will be called when any mobile link is clicked, closing the menu.
+    const handleMobileLinkClick = () => {
+        setIsMobileMenuOpen(false);
+    };
 
     return (
         <nav className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
@@ -24,7 +51,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <Link to="/" className="flex items-center space-x-2 z-50">
                         <Leaf className="text-green-600" size={28} />
-                        <span className="text-xl font-bold text-gray-800">Smart Crop</span>
+                        <span className="text-xl font-bold text-gray-800">{t('appName')}</span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -79,40 +106,42 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg h-screen p-4"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="md:hidden absolute top-0 left-0 w-full bg-white shadow-lg h-screen p-4 pt-20"
                     >
-                        <div className="flex flex-col space-y-4 pt-4">
-                            <NavLink to="/" className={mobileNavLinkClass} end>{t('nav.home')}</NavLink>
-                            <div>
-                                <button onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)} className="w-full flex justify-between items-center py-3 text-lg text-gray-700 font-medium">
+                        <div className="flex flex-col space-y-2">
+                            <NavLink to="/" className={mobileNavLinkClass} end onClick={handleMobileLinkClick}>{t('nav.home')}</NavLink>
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <button onClick={handleMobileServicesToggle} className="w-full flex justify-between items-center py-3 text-lg text-gray-700 font-medium">
                                     <span>{t('nav.services')}</span>
                                     <ChevronDown size={20} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {isMobileServicesOpen && (
                                     <div className="pl-4 border-l-2 border-green-200">
-                                        <NavLink to="/recommend-crop" className={`${mobileNavLinkClass} text-base`}>{t('nav.crop_recommendation')}</NavLink>
-                                        <NavLink to="/predict-yield" className={`${mobileNavLinkClass} text-base`}>{t('nav.yield_prediction')}</NavLink>
-                                        <NavLink to="/recommend-fertilizer" className={`${mobileNavLinkClass} text-base`}>{t('nav.fertilizer_recommendation')}</NavLink>
-                                        <NavLink to="/disease-detection" className={`${mobileNavLinkClass} text-base`}>{t('nav.disease_detection')}</NavLink>
+                                        <NavLink to="/recommend-crop" onClick={handleMobileLinkClick} className={`block ${mobileNavLinkClass({ isActive: false })} text-base`}>{t('nav.crop_recommendation')}</NavLink>
+                                        <NavLink to="/predict-yield" onClick={handleMobileLinkClick} className={`block ${mobileNavLinkClass({ isActive: false })} text-base`}>{t('nav.yield_prediction')}</NavLink>
+                                        <NavLink to="/recommend-fertilizer" onClick={handleMobileLinkClick} className={`block ${mobileNavLinkClass({ isActive: false })} text-base`}>{t('nav.fertilizer_recommendation')}</NavLink>
+                                        <NavLink to="/disease-detection" onClick={handleMobileLinkClick} className={`block ${mobileNavLinkClass({ isActive: false })} text-base`}>{t('nav.disease_detection')}</NavLink>
                                     </div>
                                 )}
                             </div>
-                            <NavLink to="/dashboard" className={mobileNavLinkClass}>{t('nav.dashboard')}</NavLink>
-                            <NavLink to="/labs" className={mobileNavLinkClass}>{t('nav.labs')}</NavLink>
-                            <NavLink to="/about" className={mobileNavLinkClass}>{t('nav.about')}</NavLink>
-                            <NavLink to="/contact" className={mobileNavLinkClass}>{t('nav.contact')}</NavLink>
+                            <NavLink to="/dashboard" className={mobileNavLinkClass} onClick={handleMobileLinkClick}>{t('nav.dashboard')}</NavLink>
+                            <NavLink to="/labs" className={mobileNavLinkClass} onClick={handleMobileLinkClick}>{t('nav.labs')}</NavLink>
+                            <NavLink to="/about" className={mobileNavLinkClass} onClick={handleMobileLinkClick}>{t('nav.about')}</NavLink>
+                            <NavLink to="/contact" className={mobileNavLinkClass} onClick={handleMobileLinkClick}>{t('nav.contact')}</NavLink>
                             
                             <div className="border-t border-gray-200 pt-6 space-y-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-700 font-medium">Language</span>
-                                    <LanguageSwitcher />
+                                    {/* Removed the faulty onClick handler to allow interaction */}
+                                    <div>
+                                        <LanguageSwitcher />
+                                    </div>
                                 </div>
                                 <div className="flex flex-col space-y-3">
-                                    <Link to="/login" className="w-full text-center font-semibold text-gray-700 hover:text-green-600 py-3 rounded-lg border border-gray-300">
+                                    <Link to="/login" onClick={handleMobileLinkClick} className="w-full text-center font-semibold text-gray-700 hover:text-green-600 py-3 rounded-lg border border-gray-300">
                                       {t('nav.login')}
                                     </Link>
-                                    <Link to="/register" className="w-full text-center bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700">
+                                    <Link to="/register" onClick={handleMobileLinkClick} className="w-full text-center bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700">
                                       {t('nav.register')}
                                     </Link>
                                 </div>
